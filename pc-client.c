@@ -1,10 +1,3 @@
-/**
- *  @file arduino_serial.c Example of communication with Arduino in Linux.
- *  @author Andrey Sharoyko
- *  @created 2012/09/18 
- *  @seealso http:///sites.google.com/site/vanyambauseslinux/ 
- */ 
-
 #include <stdlib.h> 
 #include <stdio.h> 
 #include <errno.h> 

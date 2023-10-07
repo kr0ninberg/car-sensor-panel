@@ -28,19 +28,19 @@ uint8_t velocityGet(){
 
 void loop() {
   if((millis() - pastOther) > 3000 && (millis() - pastOther < 5000)){
-    Serial.println(pastOther);
-    Serial.println(millis());
+    //Serial.println(pastOther);
+    //Serial.println(millis());
   }
   if (millis() - pastOther >= 1000){
-    Serial.print("temp-in ");
-    Serial.println(tempInGet());
-    Serial.print("temp-out ");
-    Serial.println(tempOutGet());
-    Serial.print("velocity ");
+    //Serial.print("temp-in ");
+    //Serial.println(tempInGet());
+    //Serial.print("temp-out ");
+    //Serial.println(tempOutGet());
+    //Serial.print("velocity ");
     Serial.println(velocityGet());
 
-    Serial.print("time from prev. data:");
-    Serial.println(millis() - pastOther);
+    //Serial.print("time from prev. data:");
+    //Serial.println(millis() - pastOther);
     pastOther = millis();
   }
 }

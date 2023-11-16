@@ -28,12 +28,22 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    serialportreader.cpp
+    serialportmanager.cpp \
+    serialportreader.cpp \
+    widgetsc.cpp \
+    widgetst.cpp \
+    widgetterm.cpp \
+    widgetzx.cpp
     serialportreader.cpp
 
 HEADERS += \
         mainwindow.h \
-    serialportreader.h
+    serialportmanager.h \
+    serialportreader.h \
+    widgetsc.h \
+    widgetst.h \
+    widgetterm.h \
+    widgetzx.h
     serialportreader.h
 
 FORMS += \

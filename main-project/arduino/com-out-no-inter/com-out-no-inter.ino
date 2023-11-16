@@ -24,7 +24,18 @@ void loop() {
     //Serial.println(millis());
   }
   if (millis() - pastOther >= 1000){
-    Serial.println(temperatureGet());
+    String s = "1 ";
+    s += temperatureGet();
+    Serial.println(s);
+    s = "2 ";
+    s += (10 + temperatureGet());
+    Serial.println(s);
+    s = "3 ";
+    s += (20 + temperatureGet());
+    Serial.println(s);
+    s = "4 ";
+    s += (30 + temperatureGet());
+    Serial.println(s);
 
     //Serial.print("time from prev. data:");
     //Serial.println(millis() - pastOther);

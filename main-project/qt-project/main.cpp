@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QCoreApplication>
+#include "widgetst.h"
+#include "widgetzx.h"
 
 int main(int argc, char *argv[])
 {

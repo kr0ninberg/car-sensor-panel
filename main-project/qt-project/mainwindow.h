@@ -3,12 +3,16 @@
 
 #include <QMainWindow>
 #include "serialportreader.h"
+#include "serialportmanager.h"
+//#include "widgetzx.h"
+//#include "widgetst.h"
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QThread>
 #include <QMutex>
 #include <QWaitCondition>
 #include <QDebug>
+#include <QPainter>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,10 +27,11 @@ public:
     ~MainWindow();
     Ui::MainWindow *ui;
     SerialPortReader* reader;
-    QSerialPort* serialPort0;
-    //void ChangeValue(int value);
+    SerialPortManager *sm;
+
 public slots:
-    void ChangeValue(double value);
+    void ChangeValue(int value);
+    void dataRedist(QString, QString);
 private:
 
 };

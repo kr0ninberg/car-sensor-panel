@@ -22,11 +22,11 @@ public:
     explicit SerialPortReader(QSerialPort *serialPort, QObject *parent = nullptr);
     QSerialPort *m_serialPort = nullptr;
     QByteArray m_readData;
-    QTimer m_timer;
 
 signals:
 
-    void ChangeValue(double value);
+    //void ChangeValue(int value);
+    void portOut(QString ID, QString value);
 
 public slots:
     void handleReadyRead();

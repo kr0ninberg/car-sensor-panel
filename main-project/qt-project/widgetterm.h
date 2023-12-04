@@ -1,5 +1,4 @@
-#ifndef WIDGETTERM_H
-#define WIDGETTERM_H
+#pragma once
 
 #include <QWidget>
 #include <QPainter>
@@ -19,5 +18,3 @@ public slots:
     void ValueTerm(int value);
 
 };
-
-#endif // WIDGETTERM_H

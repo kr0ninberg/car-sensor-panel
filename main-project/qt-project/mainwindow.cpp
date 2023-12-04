@@ -1,54 +1,56 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "serialportmanager.h"
 #include "serialportreader.h"
+#include "widgetsc.h"
+#include "widgetst.h"
+#include "widgetterm.h"
+#include "widgetzx.h"
+#include <QWidget>
 #include <QByteArray>
 #include <QDebug>
 #include <iostream>
 
 
-MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
 {
-    ui->setupUi(this);
     setWindowTitle("Project");
 
-    sm = new SerialPortManager("/dev/ttyACM0");
-    reader = new SerialPortReader(sm->getSerialPort());
-    //reader->handleReadyRead();
+    //widgets = new QMap<QString, QWidget*>();
 
+    widget_2 = new WidgetZX();
+    widget_3 = new WidgetSC();
+    widget_4 = new WidgetTerm();
 
-    //2 указателя - 2 объекта
+    sm = new SerialPortManager();
+    for(auto port : sm->getSerialPorts()){
+        readers.append(new SerialPortReader(port));
+        connect(readers.last(), SIGNAL(portOut(QString, QString)), this, SLOT(dataRedist(QString, QString))); // слот перекидывающий данные в соответствующий виджет
+    }
 
-    //connect(reader, &SerialPortReader::ChangeValue, this, &MainWindow::ChangeValue);
-    //connect(reader, &SerialPortReader::ChangeValue, ui->widget_2, &WidgetZX::ValueZX);
-    //connect(reader, &SerialPortReader::ChangeValue, ui->widget_3, &WidgetSC::ValueSC);
-    //connect(reader, &SerialPortReader::ChangeValue, ui->widget_4, &WidgetTerm::ValueTerm);
-
-    connect(reader, SIGNAL(portOut(QString, QString)), this, SLOT(dataRedist(QString, QString))); // слот перекидывающий данные в соответствующий виджет
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 void MainWindow::ChangeValue(int value)
 {
-    ui->label->setNum(value);
-    ui->label_6->setNum(value);
-    ui->label_7->setNum(value);
+    //label->setNum(value);
+    //label_6->setNum(value);
+    //label_7->setNum(value);
     //ui->label_13->setNum(value);
 
 }
 
 void MainWindow::dataRedist(QString ID, QString value){
     if(ID == "1") this->ChangeValue(value.toDouble());
-    else if(ID == "2") ui->widget_2->ValueZX(value.toDouble());
-    else if(ID == "3") ui->widget_3->ValueSC(value.toDouble());
-    else if(ID == "4") ui->widget_4->ValueTerm(value.toDouble());
+    else if(ID == "2") widget_2->ValueZX(value.toDouble());
+    else if(ID == "3") widget_3->ValueSC(value.toDouble());
+    else if(ID == "4") widget_4->ValueTerm(value.toDouble());
     else if(ID == "all") {
         this->ChangeValue(value.toDouble());
-        ui->widget_2->ValueZX(value.toDouble());
-        ui->widget_3->ValueSC(value.toDouble());
-        ui->widget_4->ValueTerm(value.toDouble());
+        widget_2->ValueZX(value.toDouble());
+        widget_3->ValueSC(value.toDouble());
+        widget_4->ValueTerm(value.toDouble());
     }
 }

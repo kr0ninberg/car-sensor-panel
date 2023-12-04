@@ -1,17 +1,9 @@
-#ifndef SERIALPORTREADER_H
-#define SERIALPORTREADER_H
-
+#pragma once
 
 #include <QObject>
 #include <QByteArray>
 #include <QSerialPort>
 #include <QTextStream>
-#include <QTimer>
-
-
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
 
 
 class SerialPortReader : public QObject
@@ -24,12 +16,8 @@ public:
     QByteArray m_readData;
 
 signals:
-
-    //void ChangeValue(int value);
     void portOut(QString ID, QString value);
 
 public slots:
     void handleReadyRead();
 };
-
-#endif // SERIALPORTREADER_H

@@ -1,5 +1,4 @@
-#ifndef WIDGETST_H
-#define WIDGETST_H
+#pragma once
 
 #include <QWidget>
 #include <QPainter>
@@ -13,5 +12,3 @@ public:
 signals:
 
 };
-
-#endif // WIDGETST_H

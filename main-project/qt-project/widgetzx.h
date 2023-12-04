@@ -1,5 +1,4 @@
-#ifndef WIDGETZX_H
-#define WIDGETZX_H
+#pragma once
 
 #include <QWidget>
 #include <QPainter>
@@ -18,5 +17,3 @@ public slots:
     void ValueZX(int value);
 
 };
-
-#endif // WIDGETZX_H

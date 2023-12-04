@@ -1,22 +1,17 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
-#include <QMainWindow>
-#include "serialportreader.h"
+#include "mainwindow.h"
 #include "serialportmanager.h"
-//#include "widgetzx.h"
-//#include "widgetst.h"
+#include "serialportreader.h"
+#include "widgetsc.h"
+#include "widgetst.h"
+#include "widgetterm.h"
+#include "widgetzx.h"
 #include <QMainWindow>
 #include <QSerialPort>
-#include <QThread>
-#include <QMutex>
-#include <QWaitCondition>
 #include <QDebug>
 #include <QPainter>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -25,9 +20,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    Ui::MainWindow *ui;
-    SerialPortReader* reader;
+    QList<SerialPortReader*> readers;
     SerialPortManager *sm;
+
+    //QMap<QString, QWidget*> *widgets;
+    WidgetZX *widget_2;
+    WidgetSC *widget_3;
+    WidgetTerm *widget_4;
 
 public slots:
     void ChangeValue(int value);
@@ -35,5 +34,3 @@ public slots:
 private:
 
 };
-
-#endif // MAINWINDOW_H

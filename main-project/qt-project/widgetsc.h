@@ -1,5 +1,4 @@
-#ifndef WIDGETSC_H
-#define WIDGETSC_H
+#pragma once
 
 #include <QWidget>
 #include <QPainter>
@@ -17,5 +16,3 @@ public:
 public slots:
     void ValueSC(int value);
 };
-
-#endif // WIDGETSC_H

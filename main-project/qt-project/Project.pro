@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT       += core serialport
+QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,23 +29,28 @@ SOURCES += \
         mainwindow.cpp \
     serialportmanager.cpp \
     serialportreader.cpp \
+    timewidget.cpp \
+    widgetangle.cpp \
+    widgetdistrezv.cpp \
+    widgetmap.cpp \
     widgetsc.cpp \
-    widgetst.cpp \
     widgetterm.cpp \
+    widgetturn.cpp \
     widgetzx.cpp
-    serialportreader.cpp
 
 HEADERS += \
         mainwindow.h \
     serialportmanager.h \
     serialportreader.h \
+    timewidget.h \
+    widgetangle.h \
+    widgetdistrezv.h \
+    widgetmap.h \
     widgetsc.h \
-    widgetst.h \
     widgetterm.h \
+    widgetturn.h \
     widgetzx.h
-    serialportreader.h
 
-FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -6,39 +6,56 @@ void setup() {
   pastOther = millis();
 }
 
-float temperatureGet(){
-  static float pastTemperature = 26;
-  float res1 = max(min(random(-100, 100) / 100.0 + pastTemperature, 50), -50);
-  float res2 = max(min(random(-100, 100) / 100.0 + pastTemperature, 50), -50);
-  float res3 = max(min(random(-100, 100) / 100.0 + pastTemperature, 50), -50);
-  if(abs(26 - res1) < abs(26 - res2)){
-    if(abs(26 - res1) < abs(26 - res3)) return pastTemperature = res1;
-    else return pastTemperature = res3;
-  } else if(abs(26 - res2) < abs(26 - res3)) return pastTemperature = res2;
-  else return pastTemperature = res3;
+void inMessageProc(){
+  String s = Serial.readString();
+  if(s.indexOf(' ') == -1) return;
+  String action = s.substring(0, s.indexOf(' '));
+  //if (action == "")
+}
+
+int validationCode(String s){
+  int res = 0;
+  for(int i = 0 ; i < s.length() - 1 ; ++i){
+    res += s[i];
+  }
+  return res;
+}
+
+int randomValue(int edge, int average){
+  return random(-edge, edge) + average;
+}
+
+float randomValue(float edge, float average){
+  return random(-edge*100, edge*100) / 100.0 + average;
+}
+
+void messageSender(String id, String value){
+  String res = id + ' ' + value;
+  Serial.println(res);
+  delay(10);
+  /*Serial.println(validationCode(res));*/
+}
+
+String parktronikData(){
+  String str = "";
+    for (int j = 0; j<8; j++)
+    {
+      int p = random(1,10);
+      str += p;
+    }
+  return str;
 }
 
 void loop() {
-  if((millis() - pastOther) > 3000 && (millis() - pastOther < 5000)){
-    //Serial.println(pastOther);
-    //Serial.println(millis());
+  if (Serial.available() > 0){
+    inMessageProc();
   }
   if (millis() - pastOther >= 1000){
-    String s = "1 ";
-    s += temperatureGet();
-    Serial.println(s);
-    s = "2 ";
-    s += (10 + temperatureGet());
-    Serial.println(s);
-    s = "3 ";
-    s += (20 + temperatureGet());
-    Serial.println(s);
-    s = "4 ";
-    s += (30 + temperatureGet());
-    Serial.println(s);
-
-    //Serial.print("time from prev. data:");
-    //Serial.println(millis() - pastOther);
+    for (int i = 0 ; i < 10 ; ++i){
+      messageSender(String(i), String(randomValue(100.0f, 50.0f)));
+      delay(2); // костыль, чтобы было отдельным сообщением 
+    }
+    //messageSender(String(10), parktronikData());
     pastOther = millis();
   }
 }

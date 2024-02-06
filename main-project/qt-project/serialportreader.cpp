@@ -13,12 +13,16 @@ SerialPortReader::SerialPortReader(QSerialPort *serialPort, QObject *parent) :
 void SerialPortReader::handleReadyRead()
 {
 
+    // надо парсить по "\r\n"
+
     m_readData.clear();
     m_readData.append(m_serialPort->readAll());
     qDebug() << m_readData;
 
     if(m_readData.contains('\n')) m_readData.remove(m_readData.indexOf('\n'), 1);
+    //while(m_readData.contains('\n')) m_readData.remove(m_readData.indexOf('\n'), 1);
     if(m_readData.contains('\r')) m_readData.remove(m_readData.indexOf('\r'), 1);
+    //while(m_readData.contains('\r')) m_readData.remove(m_readData.indexOf('\r'), 1);
     if(m_readData.length() == 0) return;
     QString ID;
     QString value;

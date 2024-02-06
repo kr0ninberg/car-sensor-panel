@@ -1,17 +1,21 @@
 #pragma once
 
+#include <QObject>
 #include <QSerialPort>
 #include <QSerialPortInfo>
+#include <QTimer>
 
 
-class SerialPortManager
+class SerialPortManager : public QObject
 {
+    Q_OBJECT
+
 public:
-    SerialPortManager();
+    explicit SerialPortManager();
     ~SerialPortManager();
 
     QSerialPort *serialPortInit(QString portName,
-                        qint32 baud = QSerialPort::Baud115200,
+                        qint32 baud = QSerialPort::Baud9600,
                         QSerialPort::DataBits bits = QSerialPort::Data8,
                         QSerialPort::StopBits sbits = QSerialPort::OneStop,
                         QSerialPort::Parity parity = QSerialPort::NoParity,
@@ -20,4 +24,8 @@ public:
 
 private:
     QList<QSerialPort*> serialPorts;
+    QList<QString> portsToInit;
+
+public slots:
+    void portsInterrogate();
 };

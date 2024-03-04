@@ -1,4 +1,5 @@
 QT += core gui serialport widgets
+QT += sql
 
 
 CONFIG += c++17 console

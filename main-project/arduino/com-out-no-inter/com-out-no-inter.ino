@@ -55,7 +55,7 @@ void loop() {
       messageSender(String(i), String(randomValue(100.0f, 50.0f)));
       delay(2); // костыль, чтобы было отдельным сообщением 
     }*/
-    messageSender(String(4), String(randomValue(100.0f, 50.0f)));
+    messageSender(String(2), String(randomValue(100.0f, 50.0f)));
     delay(2);
     //messageSender(String(10), parktronikData());
     pastOther = millis();

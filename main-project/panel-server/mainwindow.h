@@ -3,12 +3,13 @@
 #include <QMainWindow>
 #include "serialportmanager.h"
 #include "serialportreader.h"
-
 #include <QSerialPort>
 #include <QDebug>
-#include <QPainter>
-#include <QAction>
-
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlTableModel>
+#include <QTableView>
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +20,13 @@ public:
     ~MainWindow();
     QList<SerialPortReader*> readers;
     SerialPortManager *sm;
+    QSqlDatabase db;
+    QSqlTableModel *model;
+    QSqlTableModel *model_2;
+    QSqlTableModel *model_3;
+    QTableView *table_view;
+    QTableView *table_view_2;
+    QTableView *table_view_3;
 
     QTabWidget *tabs;
     void mainPanelTab();
@@ -26,7 +34,7 @@ public:
     void infoTab();
     void testTab();
 
-    QMenuBar *menuBar;
+    //QMenuBar *menuBar;
 
     void comReaderInit();
 

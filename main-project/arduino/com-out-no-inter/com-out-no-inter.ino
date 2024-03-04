@@ -51,10 +51,12 @@ void loop() {
     inMessageProc();
   }
   if (millis() - pastOther >= 1000){
-    for (int i = 0 ; i < 10 ; ++i){
+    /*for (int i = 0 ; i < 10 ; ++i){
       messageSender(String(i), String(randomValue(100.0f, 50.0f)));
       delay(2); // костыль, чтобы было отдельным сообщением 
-    }
+    }*/
+    messageSender(String(4), String(randomValue(100.0f, 50.0f)));
+    delay(2);
     //messageSender(String(10), parktronikData());
     pastOther = millis();
   }

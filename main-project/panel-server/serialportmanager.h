@@ -26,6 +26,9 @@ private:
     QList<QSerialPort*> serialPorts;
     QList<QString> portsToInit;
 
+signals:
+    void newPortReceived(QSerialPort *portPtr);
+
 public slots:
     void portsInterrogate();
 };

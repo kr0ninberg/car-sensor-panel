@@ -4,14 +4,14 @@
 SerialPortManager::SerialPortManager()
 {
     portsInterrogate();
-    /*QTimer *timer = new QTimer(this);		// это должен был быть опрос датчиков по таймеру [может как-нибудь потом]
+    QTimer *timer = new QTimer(this);		// это должен был быть опрос датчиков по таймеру [может как-нибудь потом]
     timer->setInterval(20000);
     connect(timer, &QTimer::timeout, this, &SerialPortManager::portsInterrogate);
-    timer->start();*/
+    timer->start();
 }
 
 void SerialPortManager::portsInterrogate(){
-    /*QList<QSerialPortInfo> portsInfo = QSerialPortInfo::availablePorts();
+    /*QList<QSerialPortInfo> portsInfo = QSerialPortInfo::availablePorts(); // позволяет задать задержку до открытия порта
     for(auto initPortName : portsToInit){
         QSerialPort *t = serialPortInit(initPortName);
         if(t != nullptr) serialPorts.append(t);
@@ -29,12 +29,15 @@ void SerialPortManager::portsInterrogate(){
     QList<QSerialPortInfo> portsInfo = QSerialPortInfo::availablePorts();
     for(auto portInfo : portsInfo){
         bool isBusy = false;
-        for(auto initializedPort : serialPorts){
+        for(auto initializedPort : serialPorts){ // проходим по инициализированным, проверяем открыт ли порт
             if(initializedPort->portName() == portInfo.portName()) isBusy = true;
         }
         if(!isBusy){
             QSerialPort *t = serialPortInit(portInfo.portName());
-            if(t != nullptr) serialPorts.append(t);
+            if(t != nullptr){
+                serialPorts.append(t);
+                emit newPortReceived(t);
+            }
         }
     }
 }
@@ -47,12 +50,12 @@ QSerialPort *SerialPortManager::serialPortInit(QString portName,
                             QSerialPort::FlowControl flow){
     QSerialPort *portToInit = new QSerialPort();
 
-    portToInit ->setPortName(portName);
-    portToInit ->setBaudRate(baud);
-    portToInit ->setDataBits(bits);
-    portToInit ->setStopBits(sbits);
-    portToInit ->setParity(parity);
-    portToInit ->setFlowControl(flow);
+    portToInit->setPortName(portName);
+    portToInit->setBaudRate(baud);
+    portToInit->setDataBits(bits);
+    portToInit->setStopBits(sbits);
+    portToInit->setParity(parity);
+    portToInit->setFlowControl(flow);
 
     bool result = portToInit->open(QIODevice::ReadWrite);
 

@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
     tabs = new QTabWidget(this);
     this->setCentralWidget(tabs);
     tabs->setTabsClosable(false);
+    s = new Server();
+    connect(s, SIGNAL(mishaNeedSomeData()), this, SLOT(sendData()));
 
     mainPanelTab();
     //navigationTab();
@@ -50,20 +52,28 @@ void MainWindow::mainPanelTab(){
     qDebug() << "База данных подключена" << db.databaseName();
 
     model = new QSqlTableModel(this, db);
-    model ->setTable("test_sensor_1");
+    model->setTable("test_sensor_1");
     model->select();
+
+
+
     table_view->setModel(model);
     model_2 = new QSqlTableModel(this, db);
     model_2 ->setTable("test_sensor_2");
     model_2->select();
     table_view_2->setModel(model_2);
 
+    QTimer *timer = new QTimer(this);		// это должен был быть опрос датчиков по таймеру [может как-нибудь потом]
+    timer->setInterval(5000);
+    connect(timer, SIGNAL(timeout()), model_2, SLOT(select()));
+    timer->start();
+
     /*QSqlQuery query1("SELECT Fruit, Price FROM Products ORDER BY Price DESC LIMIT 1");
     while (query1.next()){
         QString Fruit = query1.value("Fruit").toString();
         int Price = query1.value("Price").toInt();
         qDebug() << Fruit << Price;
-    }*/
+    }*y/
     //widget = new WidgetAngle(w);		// поворот колес
     //layout->addWidget(widget , 2 , 3 , 1 , 1);
     /*layoutM->addWidget(menuBar);
@@ -72,9 +82,9 @@ void MainWindow::mainPanelTab(){
     layout->addWidget(table_view , 1 , 1);
     layout->addWidget(table_view_2 , 1 , 2);
     layout->addWidget(table_view_3 , 1 , 3);
-    QPushButton button("reload", w);
+    /*QPushButton button("reload", w);
     connect(&button, SIGNAL(clicked(bool)), table_view_2, SLOT(update()));
-    layout->addWidget(&button , 1 , 4);
+    layout->addWidget(&button , 1 , 4);*/
     w->setLayout(layout); // layoutM
 }
 
@@ -129,9 +139,39 @@ void MainWindow::dataRedist(QString ID, QString value){
 //    if(ID == "1") this->ChangeValue(value.toDouble());
 //    else if(ID == "0") widget->ValueAngle(value.toDouble());
 //    else if(ID == "2") widget_2->ValueZX(value.toDouble());
-    if(ID == "2"){
+    if(ID == "1"){
+        QSqlQuery query;
+        query.prepare("INSERT INTO test_sensor_1 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.bindValue(":value1", value);
+
+        if (query.exec()) {
+            qDebug() << "Запись успешно добавлена";
+        } else {
+            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+        }
+    }else if(ID == "2"){
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_2 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.bindValue(":value1", value);
+
+        if (query.exec()) {
+            qDebug() << "Запись успешно добавлена";
+        } else {
+            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+        }
+    }else if(ID == "3"){
+        QSqlQuery query;
+        query.prepare("INSERT INTO test_sensor_3 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.bindValue(":value1", value);
+
+        if (query.exec()) {
+            qDebug() << "Запись успешно добавлена";
+        } else {
+            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+        }
+    }else if(ID == "4"){
+        QSqlQuery query;
+        query.prepare("INSERT INTO test_sensor_4 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
 
         if (query.exec()) {
@@ -145,4 +185,29 @@ void MainWindow::dataRedist(QString ID, QString value){
 void MainWindow::dinamicReaderCreator(QSerialPort* port){
     readers.append(new SerialPortReader(port));
     connect(readers.last(), SIGNAL(portOut(QString, QString)), this, SLOT(dataRedist(QString, QString))); // слот перекидывающий данные в соответствующий виджет
+}
+
+void MainWindow::sendData(){
+    QString res = "";
+    QSqlQuery query1("SELECT Value FROM test_sensor_1 ORDER BY id DESC LIMIT 1");
+    while (query1.next()){
+        res += query1.value("Value").toString();
+    }
+    res += " ";
+    QSqlQuery query2("SELECT Value FROM test_sensor_2 ORDER BY id DESC LIMIT 1");
+    while (query2.next()){
+        res += query2.value("Value").toString();
+    }
+    res += " ";
+    QSqlQuery query3("SELECT Value FROM test_sensor_3 ORDER BY id DESC LIMIT 1");
+    while (query3.next()){
+        res += query3.value("Value").toString();
+    }
+    res += " ";
+    QSqlQuery query4("SELECT Value FROM test_sensor_4 ORDER BY id DESC LIMIT 1");
+    while (query4.next()){
+        res += query4.value("Value").toString();
+    }
+    //qDebug() << res;
+    s->SendToClient(res);
 }

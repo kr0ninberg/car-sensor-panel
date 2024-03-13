@@ -1,11 +1,8 @@
-QT += core gui widgets
-QT += serialport
-QT += sql
-QT += network
+QT       += core gui network
 
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++17 console
-CONFIG -= app_bundle
+CONFIG += c++11
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -13,16 +10,13 @@ CONFIG -= app_bundle
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    serialportmanager.cpp \
-    serialportreader.cpp \
-    server.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    serialportmanager.h \
-    serialportreader.h \
-    server.h \
+    mainwindow.h
+
+FORMS += \
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

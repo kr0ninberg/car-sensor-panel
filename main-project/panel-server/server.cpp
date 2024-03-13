@@ -39,14 +39,14 @@ void Server::slotbytesWritten(qint64 bytes)
 
 void Server::slotNewConnection()
 {
-    int i = 0;
+    /*int i = 0;
     for (;;)
     {
         this->waitForNewConnection(100);
         emit mishaNeedSomeData();
         //SendToClient(QString::number(i) + " " + QString::number(i+1) + " " + QString::number(i+2) + " " + QString::number(i+3));
         i++;
-    }
+    }*/
     QTimer *timer = new QTimer(this);
     timer->setInterval(5000);
     connect(timer, SIGNAL(timeout()), this, SLOT(kostylSlotNewConnection()));

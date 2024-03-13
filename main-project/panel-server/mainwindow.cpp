@@ -59,7 +59,7 @@ void MainWindow::mainPanelTab(){
 
     table_view->setModel(model);
     model_2 = new QSqlTableModel(this, db);
-    model_2 ->setTable("test_sensor_2");
+    model_2 ->setTable("test_sensor_4");
     model_2->select();
     table_view_2->setModel(model_2);
 

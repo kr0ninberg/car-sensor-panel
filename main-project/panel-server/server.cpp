@@ -12,7 +12,11 @@ Server::Server()
     }
     nextBlockSize = 0;
 
-    connect(this, &QTcpServer::newConnection, this, &Server::slotNewConnection);
+    //connect(this, &QTcpServer::newConnection, this, &Server::slotNewConnection);
+    QTimer *timer = new QTimer(this);
+    timer->setInterval(50);
+    connect(timer, SIGNAL(timeout()), this, SLOT(dataReceiver()));
+    timer->start();
 }
 
 void Server::incomingConnection(qintptr socketDescriptor) //This virtual function is called by QTcpServer when a new connection is available
@@ -37,21 +41,9 @@ void Server::slotbytesWritten(qint64 bytes)
     qDebug() << "bytes" << bytes;
 }
 
-void Server::slotNewConnection()
+void Server::dataReceiver()
 {
-    /*int i = 0;
-    for (;;)
-    {
-        this->waitForNewConnection(100);
-        emit mishaNeedSomeData();
-        //SendToClient(QString::number(i) + " " + QString::number(i+1) + " " + QString::number(i+2) + " " + QString::number(i+3));
-        i++;
-    }*/
-    QTimer *timer = new QTimer(this);
-    timer->setInterval(5000);
-    connect(timer, SIGNAL(timeout()), this, SLOT(kostylSlotNewConnection()));
-    timer->start();
-
+    emit mishaNeedSomeData();
 }
 
 void Server::slotDisconnected()
@@ -80,9 +72,4 @@ void Server::SendToClient(QString str)
             Sockets[i]->waitForReadyRead(700);
         }
     }
-}
-
-void Server::kostylSlotNewConnection(){
-    this->waitForNewConnection(100);
-    emit mishaNeedSomeData();
 }

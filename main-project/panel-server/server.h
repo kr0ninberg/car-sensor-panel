@@ -25,9 +25,8 @@ public slots:
     void SendToClient(QString str);
     void incomingConnection(qintptr socketDescriptor);
     void slotbytesWritten(qint64 bytes);
-    void slotNewConnection();
+    void dataReceiver();
     void slotDisconnected();
-    void kostylSlotNewConnection();
 
 signals:
     void mishaNeedSomeData();

@@ -14,7 +14,7 @@ Server::Server()
 
     //connect(this, &QTcpServer::newConnection, this, &Server::slotNewConnection);
     QTimer *timer = new QTimer(this);
-    timer->setInterval(50);
+    timer->setInterval(300);
     connect(timer, SIGNAL(timeout()), this, SLOT(dataReceiver()));
     timer->start();
 }
@@ -69,7 +69,7 @@ void Server::SendToClient(QString str)
         if (Sockets[i]->state() == QAbstractSocket::ConnectedState)
         {
             Sockets[i]->write(Data);
-            Sockets[i]->waitForReadyRead(700);
+            Sockets[i]->waitForReadyRead(1);
         }
     }
 }

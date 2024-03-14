@@ -59,7 +59,7 @@ void MainWindow::mainPanelTab(){
 
     table_view->setModel(model);
     model_2 = new QSqlTableModel(this, db);
-    model_2 ->setTable("test_sensor_4");
+    model_2->setTable("test_sensor_4");
     model_2->select();
     table_view_2->setModel(model_2);
 
@@ -68,23 +68,9 @@ void MainWindow::mainPanelTab(){
     connect(timer, SIGNAL(timeout()), model_2, SLOT(select()));
     timer->start();
 
-    /*QSqlQuery query1("SELECT Fruit, Price FROM Products ORDER BY Price DESC LIMIT 1");
-    while (query1.next()){
-        QString Fruit = query1.value("Fruit").toString();
-        int Price = query1.value("Price").toInt();
-        qDebug() << Fruit << Price;
-    }*y/
-    //widget = new WidgetAngle(w);		// поворот колес
-    //layout->addWidget(widget , 2 , 3 , 1 , 1);
-    /*layoutM->addWidget(menuBar);
-    layoutM->addLayout(layout);*/
-
     layout->addWidget(table_view , 1 , 1);
     layout->addWidget(table_view_2 , 1 , 2);
     layout->addWidget(table_view_3 , 1 , 3);
-    /*QPushButton button("reload", w);
-    connect(&button, SIGNAL(clicked(bool)), table_view_2, SLOT(update()));
-    layout->addWidget(&button , 1 , 4);*/
     w->setLayout(layout); // layoutM
 }
 

@@ -11,21 +11,6 @@ SerialPortManager::SerialPortManager()
 }
 
 void SerialPortManager::portsInterrogate(){
-    /*QList<QSerialPortInfo> portsInfo = QSerialPortInfo::availablePorts(); // позволяет задать задержку до открытия порта
-    for(auto initPortName : portsToInit){
-        QSerialPort *t = serialPortInit(initPortName);
-        if(t != nullptr) serialPorts.append(t);
-    }
-    portsToInit.clear();
-    for(auto portInfo : portsInfo){
-        bool isBusy = false;
-        for(auto initializedPort : serialPorts){
-            if(initializedPort->portName() == portInfo.portName()) isBusy = true;
-        }
-        if(!isBusy){
-            portsToInit.append(portInfo.portName());
-        }
-    }*/
     QList<QSerialPortInfo> portsInfo = QSerialPortInfo::availablePorts();
     for(auto portInfo : portsInfo){
         bool isBusy = false;
@@ -60,7 +45,7 @@ QSerialPort *SerialPortManager::serialPortInit(QString portName,
     bool result = portToInit->open(QIODevice::ReadWrite);
 
     if (!result) {
-        qDebug() << "Failed to open port: " << portToInit->portName() << ", error: " << portToInit->errorString();
+        qWarning() << "Failed to open port: " << portToInit->portName() << ", error: " << portToInit->errorString();
         return nullptr;
     } else {
         qDebug() << "Connected to " << portToInit->portName();

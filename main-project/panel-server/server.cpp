@@ -8,7 +8,7 @@ Server::Server()
     }
     else
     {
-        qDebug() << "Error";
+        qCritical() << "Error";
     }
     nextBlockSize = 0;
 

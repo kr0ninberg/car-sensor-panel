@@ -17,18 +17,28 @@ MainWindow::MainWindow(QWidget *parent) :QMainWindow(parent)
     tabs->setTabsClosable(false);
     s = new Server();
     connect(s, SIGNAL(mishaNeedSomeData()), this, SLOT(sendData()));
+    dbinit();
 
     mainPanelTab();
     //navigationTab();
-    infoTab();
+    //infoTab();
     //testTab();
-
     comReaderInit();
 }
 
 MainWindow::~MainWindow()
 {
     db.close();
+}
+
+void MainWindow::dbinit(){
+    db = QSqlDatabase::addDatabase(DBTYPE);
+    db.setDatabaseName(DBNAME);
+    if(!db.open()){
+        qCritical() << "При подключении произошла ошибка: " << db.lastError().databaseText();
+        return;
+    }
+    qDebug() << "База данных подключена" << db.databaseName();
 }
 
 void MainWindow::mainPanelTab(){
@@ -40,16 +50,17 @@ void MainWindow::mainPanelTab(){
     QVBoxLayout *layoutM = new QVBoxLayout();*/
     QGridLayout *layout = new QGridLayout();
 
+    QSqlTableModel *model;
+    QSqlTableModel *model_2;
+    QSqlTableModel *model_3;
+    QTableView *table_view;
+    QTableView *table_view_2;
+    QTableView *table_view_3;
+
     table_view = new QTableView(w);
     table_view_2 = new QTableView(w);
     table_view_3 = new QTableView(w);
-    db = QSqlDatabase::addDatabase(DBTYPE);
-    db.setDatabaseName(DBNAME);
-    if(!db.open()){
-        qDebug() << "При подключении произошла ошибка: " << db.lastError().databaseText();
-        return;
-    }
-    qDebug() << "База данных подключена" << db.databaseName();
+
 
     model = new QSqlTableModel(this, db);
     model->setTable("test_sensor_1");
@@ -60,6 +71,7 @@ void MainWindow::mainPanelTab(){
     table_view->setModel(model);
     model_2 = new QSqlTableModel(this, db);
     model_2->setTable("test_sensor_4");
+    //QSqlQuery query1("SELECT Value FROM test_sensor_4 ORDER BY id DESC LIMIT 1");
     model_2->select();
     table_view_2->setModel(model_2);
 
@@ -122,10 +134,8 @@ void MainWindow::comReaderInit(){
 }
 
 void MainWindow::dataRedist(QString ID, QString value){
-//    if(ID == "1") this->ChangeValue(value.toDouble());
-//    else if(ID == "0") widget->ValueAngle(value.toDouble());
-//    else if(ID == "2") widget_2->ValueZX(value.toDouble());
-    if(ID == "1"){
+    if(ID == "accel"){
+        if(!checkValue(0, 200, &ID, &value)) return;
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_1 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
@@ -133,9 +143,10 @@ void MainWindow::dataRedist(QString ID, QString value){
         if (query.exec()) {
             qDebug() << "Запись успешно добавлена";
         } else {
-            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+            qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "2"){
+    }else if(ID == "tbat"){
+        if(!checkValue(-30.0f, 60.0f, &ID, &value)) return;
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_2 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
@@ -143,9 +154,10 @@ void MainWindow::dataRedist(QString ID, QString value){
         if (query.exec()) {
             qDebug() << "Запись успешно добавлена";
         } else {
-            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+            qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "3"){
+    }else if(ID == "tout"){
+        if(!checkValue(-30.0f, 40.0f, &ID, &value)) return;
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_3 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
@@ -153,9 +165,10 @@ void MainWindow::dataRedist(QString ID, QString value){
         if (query.exec()) {
             qDebug() << "Запись успешно добавлена";
         } else {
-            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+            qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "4"){
+    }else if(ID == "bat"){
+        if(!checkValue(0, 100, &ID, &value)) return;
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_4 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
@@ -163,7 +176,7 @@ void MainWindow::dataRedist(QString ID, QString value){
         if (query.exec()) {
             qDebug() << "Запись успешно добавлена";
         } else {
-            qDebug() << "Ошибка при добавлении записи:" << query.lastError().text();
+            qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
     }
 }
@@ -196,4 +209,44 @@ void MainWindow::sendData(){
     }
     //qDebug() << res;
     s->SendToClient(res);
+}
+
+bool MainWindow::checkValue(float left, float right, const QString* id, const QString* value){
+    try {
+        bool *ok = new bool();
+        float val = value->toFloat(ok);
+        if(!*ok) throw(QString("conversion failure [id = %1, value = %2]").arg(*id).arg(*value));
+        if(val < left || val > right){
+            throw(QString("value out of range [id = %1, value = %2]").arg(*id).arg(*value));
+        }
+    } catch (QString str) {
+        qWarning() << str;
+        return false;
+    } catch (...){
+        qCritical() << QString("smt gone wrong ["
+                               "function bool checkValue(float, float, const QString*, const QString*);"
+                               "id = %1, value = %2]").arg(*id).arg(*value);
+        return false;
+    }
+    return true;
+}
+
+bool MainWindow::checkValue(int left, int right, const QString* id, const QString* value){
+    try {
+        bool *ok = new bool();
+        int val = value->toInt(ok);
+        if(!*ok) throw(QString("conversion failure [id = %1, value = %2]").arg(*id).arg(*value));
+        if(val < left || val > right){
+            throw(QString("value out of range [id = %1, value = %2]").arg(*id).arg(*value));
+        }
+    } catch (QString str) {
+        qWarning() << str;
+        return false;
+    } catch (...){
+        qCritical() << QString("smt gone wrong ["
+                               "function bool checkValue(int, int, const QString*, const QString*);"
+                               "id = %1, value = %2]").arg(*id).arg(*value);
+        return false;
+    }
+    return true;
 }

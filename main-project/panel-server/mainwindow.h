@@ -22,15 +22,10 @@ public:
     QList<SerialPortReader*> readers;
     SerialPortManager *sm;
     QSqlDatabase db;
-    QSqlTableModel *model;
-    QSqlTableModel *model_2;
-    QSqlTableModel *model_3;
-    QTableView *table_view;
-    QTableView *table_view_2;
-    QTableView *table_view_3;
     Server* s;
 
     QTabWidget *tabs;
+    void dbinit();
     void mainPanelTab();
     void navigationTab();
     void infoTab();
@@ -38,12 +33,14 @@ public:
 
     //QMenuBar *menuBar;
 
-    void comReaderInit();
+    void comReaderInit();						// инициализация работы с датчиками
+    bool checkValue(float, float, const QString*, const QString*);
+    bool checkValue(int, int, const QString*, const QString*);
 
 public slots:
-    void dataRedist(QString, QString);
+    void dataRedist(QString, QString);			// обрабатывает данные из датчиков
     void dinamicReaderCreator(QSerialPort*);
-    void sendData();
+    void sendData();							// отправка данных из бд во вне
 private:
 
 };

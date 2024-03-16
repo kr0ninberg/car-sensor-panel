@@ -32,7 +32,7 @@ float randomValue(float edge, float average){
 void messageSender(String id, String value){
   String res = id + ' ' + value;
   Serial.println(res);
-  delay(10);
+  //delay(10);
   /*Serial.println(validationCode(res));*/
 }
 
@@ -47,17 +47,23 @@ String parktronikData(){
 }
 
 void loop() {
-  if (Serial.available() > 0){
-    inMessageProc();
-  }
-  if (millis() - pastOther >= 1000){
-    /*for (int i = 0 ; i < 10 ; ++i){
-      messageSender(String(i), String(randomValue(100.0f, 50.0f)));
-      delay(2); // костыль, чтобы было отдельным сообщением 
-    }*/
-    messageSender(String(2), String(randomValue(100.0f, 50.0f)));
-    delay(2);
-    //messageSender(String(10), parktronikData());
-    pastOther = millis();
-  }
+  // if (Serial.available() > 0){
+  //   inMessageProc();
+  // }
+  // for(int i = 0 ; i < 200 ; ++i){
+  //   messageSender(String("accel"), String(i));
+  //   delay(300);
+  // }
+  // for(float i = -30.0f ; i < 60.0f ; i += 0.2){
+  //   messageSender(String("tbat"), String(i));
+  //   delay(100);
+  // }
+  // for(float i = -30.0f ; i < 40.0f ; i += 0.2){
+  //   messageSender(String("tout"), String(i));
+  //   delay(100);
+  // }
+  // for(int i = 100 ; i >= 0 ; --i){
+  //   messageSender(String("bat"), String(i));
+  //   delay(300);
+  // }
 }

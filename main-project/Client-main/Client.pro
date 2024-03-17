@@ -12,14 +12,18 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     widgetcharge.cpp \
+    widgetright.cpp \
     widgetspeed.cpp \
-    widgettemp.cpp
+    widgettemp.cpp \
+    widgettop.cpp
 
 HEADERS += \
     mainwindow.h \
     widgetcharge.h \
+    widgetright.h \
     widgetspeed.h \
-    widgettemp.h
+    widgettemp.h \
+    widgettop.h
 
 FORMS += \
     mainwindow.ui
@@ -28,4 +32,3 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-

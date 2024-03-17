@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+//#define SERVER_IP "127.0.0.1"
+#define SERVER_IP "192.168.0.65"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,13 +9,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Клиент");
-    // this->setMaximumWidth(1280);
-    // this->setMaximumHeight(800);
-    // this->showFullScreen();
-    this->resize(1280, 800);
+//     this->setMaximumWidth(1280);
+//     this->setMaximumHeight(800);
+     this->setWindowState(Qt::WindowFullScreen);
+//    this->resize(1280, 800);
 
     QPalette Pal(palette());
-    Pal.setColor(QPalette::Window, QColor(25, 28, 31));
+    Pal.setColor(QPalette::Background, QColor(25, 28, 31));
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
 
@@ -25,8 +27,19 @@ MainWindow::MainWindow(QWidget *parent)
     nextBlockSize = 0;
 
     connect(this, &MainWindow::signalSpeed, ui->widget, &WidgetSpeed::slotSpeed);
+    connect(this, &MainWindow::signalRight, ui->widget_2, &WidgetRight::slotRight);
     connect(this, &MainWindow::signalCharge, ui->widget_3, &WidgetCharge::slotCharge);
     connect(this, &MainWindow::signalTemp, ui->widget_4, &WidgetTemp::slotTemp);
+    connect(this, &MainWindow::signalTop, ui->widget_5, &WidgetTop::slotTop);
+    ui->textBrowser->hide();
+    ui->pushButton->hide();
+    ui->layoutWidget->hide();
+}
+
+void MainWindow::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event)
+    socket->connectToHost(SERVER_IP , 2323);
 }
 
 MainWindow::~MainWindow()
@@ -37,7 +50,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    socket->connectToHost("192.168.0.65", 2323); //Attempts to make a connection to hostName on the given port.
+    socket->connectToHost(SERVER_IP, 2323); //Attempts to make a connection to hostName on the given port.
 }
 
 void MainWindow::slotInfo()
@@ -96,6 +109,7 @@ void MainWindow::slotReadyRead()
             }
             emit signalSpeed(ArriveDataList.at(1));
             emit signalCharge(ArriveDataList.at(2));
+            emit signalTop(ArriveDataList.at(3));
             emit signalTemp(ArriveDataList.at(4));
         }
     }

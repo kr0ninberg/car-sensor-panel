@@ -145,10 +145,11 @@ void MainWindow::dataRedist(QString ID, QString value){
         } else {
             qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "bat"){
-        if(!checkValue(0, 100, &ID, &value)) return;
+    }else if(ID == "tbat"){
+        if(!checkValue(-10.0f, 70.0f, &ID, &value)) return;
+        value = QString::number(int(value.toFloat()));
         QSqlQuery query;
-        query.prepare("INSERT INTO test_sensor_4 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.prepare("INSERT INTO test_sensor_2 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
 
         if (query.exec()) {
@@ -158,6 +159,7 @@ void MainWindow::dataRedist(QString ID, QString value){
         }
     }else if(ID == "tout"){
         if(!checkValue(-30.0f, 40.0f, &ID, &value)) return;
+        value = QString::number(int(value.toFloat()));
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_3 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
@@ -167,11 +169,10 @@ void MainWindow::dataRedist(QString ID, QString value){
         } else {
             qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "tbat"){
-        if(!checkValue(-10.0f, 70.0f, &ID, &value)) return;
-        value = QString::number(int(value.toFloat()));
+    }else if(ID == "bat"){
+        if(!checkValue(0, 100, &ID, &value)) return;
         QSqlQuery query;
-        query.prepare("INSERT INTO test_sensor_2 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.prepare("INSERT INTO test_sensor_4 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
 
         if (query.exec()) {
@@ -194,9 +195,9 @@ void MainWindow::sendData(){
         res += query1.value("Value").toString();
     }
     res += " ";
-    QSqlQuery query2("SELECT Value FROM test_sensor_2 ORDER BY id DESC LIMIT 1");
-    while (query2.next()){
-        res += query2.value("Value").toString();
+    QSqlQuery query4("SELECT Value FROM test_sensor_4 ORDER BY id DESC LIMIT 1");
+    while (query4.next()){
+        res += query4.value("Value").toString();
     }
     res += " ";
     QSqlQuery query3("SELECT Value FROM test_sensor_3 ORDER BY id DESC LIMIT 1");
@@ -204,10 +205,11 @@ void MainWindow::sendData(){
         res += query3.value("Value").toString();
     }
     res += " ";
-    QSqlQuery query4("SELECT Value FROM test_sensor_4 ORDER BY id DESC LIMIT 1");
-    while (query4.next()){
-        res += query4.value("Value").toString();
+    QSqlQuery query2("SELECT Value FROM test_sensor_2 ORDER BY id DESC LIMIT 1");
+    while (query2.next()){
+        res += query2.value("Value").toString();
     }
+
     //qDebug() << res;
     s->SendToClient(res);
 }

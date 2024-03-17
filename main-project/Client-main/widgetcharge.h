@@ -4,8 +4,6 @@
 #include <QWidget>
 #include <QPainter>
 #include <QDebug>
-#include <QCoreApplication>
-#include <QFontDatabase>
 
 class WidgetCharge : public QWidget
 {

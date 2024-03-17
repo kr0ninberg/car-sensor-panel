@@ -6,9 +6,9 @@ WidgetCharge::WidgetCharge(QWidget *parent)
 
 void WidgetCharge::slotCharge(QString charge)
 {
-    count += 1;
-    if (count == 100){count = 0;}
-    qDebug() << "Charge accepted" << charge;
+//    count += 1;
+//    if (count == 100){count = 0;}
+//    qDebug() << "Charge accepted" << charge;
     AcceptedChargeInt = charge.toInt();
     AcceptedChargeQString = charge;
 //    AcceptedChargeInt = count;
@@ -21,14 +21,21 @@ void WidgetCharge::paintEvent(QPaintEvent *event)
     Q_UNUSED(event);
     QPainter painter(this);
 
-//    int idFont = QFontDatabase::addApplicationFont(QCoreApplication::applicationDirPath() + "/Jura-Medium.woff");
-//    QString juraFont = QFontDatabase::applicationFontFamilies(idFont).at(0);
-
     QPoint center = painter.viewport().center();
-    painter.drawRect(painter.viewport());
+//    painter.drawRect(painter.viewport());
 
-    painter.setPen(QPen(QColor(15, 89, 201), 12, Qt::SolidLine, Qt::RoundCap));
+//    QRect r(0,0, this->width(), this->height());
+//    QPoint center = r.center();
 
-    painter.drawArc(QRect(10, 10, 260, 260), 1440 , count*57.6);
-    painter.drawText(center, AcceptedChargeQString);
+    painter.setPen(QPen(QColor(15, 89, 201), 15, Qt::SolidLine, Qt::RoundCap));
+
+    painter.drawArc(QRect(10, 10, 260, 260), 1440 , AcceptedChargeInt*57.6);
+//    painter.drawText(center, AcceptedChargeQString);
+    painter.setFont(QFont("Ubuntu", 40, QFont::Medium));
+    painter.setPen(QPen(Qt::white));
+    painter.drawText(QRect(center.x() - 110, center.y() - 100, 220, 120), Qt::AlignHCenter | Qt::AlignBottom,  AcceptedChargeQString + " %");
+    painter.setFont(QFont("Ubuntu", 14, QFont::Thin));
+    painter.setPen(QPen(Qt::white));
+    painter.drawText(QRect(center.x() - 110, center.y() + 20, 220, 120), Qt::AlignHCenter | Qt::AlignTop,  "Заряд батареи");
+
 }

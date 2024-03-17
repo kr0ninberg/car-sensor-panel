@@ -54,16 +54,16 @@ void loop() {
   //   messageSender(String("accel"), String(i));
   //   delay(300);
   // }
-  for(float i = -10.0f ; i < 70.0f ; i += 0.2){
-    messageSender(String("tbat"), String(i));
-    delay(100);
-  }
+  // for(float i = -10.0f ; i < 70.0f ; i += 0.2){
+  //   messageSender(String("tbat"), String(i));
+  //   delay(100);
+  // }
   // for(float i = -30.0f ; i < 40.0f ; i += 0.2){
   //   messageSender(String("tout"), String(i));
   //   delay(100);
   // }
-  // for(int i = 100 ; i >= 0 ; --i){
-  //   messageSender(String("bat"), String(i));
-  //   delay(300);
-  // }
+  for(int i = 100 ; i >= 0 ; --i){
+    messageSender(String("bat"), String(i));
+    delay(300);
+  }
 }

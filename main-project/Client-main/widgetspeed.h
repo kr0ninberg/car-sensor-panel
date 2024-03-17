@@ -2,10 +2,10 @@
 #define WIDGETSPEED_H
 
 #include <QWidget>
-#include <QCoreApplication>
 #include <QPainter>
 #include <QDebug>
 #include <QFontDatabase>
+#include <QCoreApplication>
 
 class WidgetSpeed : public QWidget
 {

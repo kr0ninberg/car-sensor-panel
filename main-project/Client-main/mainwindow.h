@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    void showEvent(QShowEvent* event) override;
     ~MainWindow();
 
 private slots:
@@ -39,5 +40,7 @@ signals:
     void signalSpeed(QString speed);
     void signalCharge(QString charge);
     void signalTemp(QString temp);
+    void signalRight();
+    void signalTop(QString temp);
 };
 #endif // MAINWINDOW_H

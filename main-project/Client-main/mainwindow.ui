@@ -97,7 +97,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="widget_2" native="true">
+   <widget class="WidgetRight" name="widget_2" native="true">
     <property name="geometry">
      <rect>
       <x>960</x>
@@ -124,6 +124,16 @@
       <y>666</y>
       <width>320</width>
       <height>80</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTop" name="widget_5" native="true">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>0</y>
+      <width>640</width>
+      <height>121</height>
      </rect>
     </property>
    </widget>
@@ -157,6 +167,18 @@
    <class>WidgetTemp</class>
    <extends>QWidget</extends>
    <header location="global">widgettemp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetRight</class>
+   <extends>QWidget</extends>
+   <header>widgetright.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTop</class>
+   <extends>QWidget</extends>
+   <header location="global">widgettop.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -32,7 +32,7 @@ float randomValue(float edge, float average){
 void messageSender(String id, String value){
   String res = id + ' ' + value;
   Serial.println(res);
-  //delay(10);
+  delay(10);
   /*Serial.println(validationCode(res));*/
 }
 
@@ -50,14 +50,14 @@ void loop() {
   // if (Serial.available() > 0){
   //   inMessageProc();
   // }
-  // for(int i = 0 ; i < 200 ; ++i){
+  // for(int i = 0 ; i < 121 ; ++i){
   //   messageSender(String("accel"), String(i));
   //   delay(300);
   // }
-  // for(float i = -30.0f ; i < 60.0f ; i += 0.2){
-  //   messageSender(String("tbat"), String(i));
-  //   delay(100);
-  // }
+  for(float i = -10.0f ; i < 70.0f ; i += 0.2){
+    messageSender(String("tbat"), String(i));
+    delay(100);
+  }
   // for(float i = -30.0f ; i < 40.0f ; i += 0.2){
   //   messageSender(String("tout"), String(i));
   //   delay(100);

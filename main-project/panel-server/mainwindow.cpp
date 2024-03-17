@@ -75,10 +75,10 @@ void MainWindow::mainPanelTab(){
     model_2->select();
     table_view_2->setModel(model_2);
 
-    QTimer *timer = new QTimer(this);		// это должен был быть опрос датчиков по таймеру [может как-нибудь потом]
-    timer->setInterval(5000);
-    connect(timer, SIGNAL(timeout()), model_2, SLOT(select()));
-    timer->start();
+//    QTimer *timer = new QTimer(this);		// это должен был быть опрос датчиков по таймеру [может как-нибудь потом]
+//    timer->setInterval(5000);
+//    connect(timer, SIGNAL(timeout()), model_2, SLOT(select()));
+//    timer->start();
 
     layout->addWidget(table_view , 1 , 1);
     layout->addWidget(table_view_2 , 1 , 2);
@@ -135,7 +135,7 @@ void MainWindow::comReaderInit(){
 
 void MainWindow::dataRedist(QString ID, QString value){
     if(ID == "accel"){
-        if(!checkValue(0, 200, &ID, &value)) return;
+        if(!checkValue(0, 120, &ID, &value)) return;
         QSqlQuery query;
         query.prepare("INSERT INTO test_sensor_1 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
@@ -145,10 +145,10 @@ void MainWindow::dataRedist(QString ID, QString value){
         } else {
             qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "tbat"){
-        if(!checkValue(-30.0f, 60.0f, &ID, &value)) return;
+    }else if(ID == "bat"){
+        if(!checkValue(0, 100, &ID, &value)) return;
         QSqlQuery query;
-        query.prepare("INSERT INTO test_sensor_2 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.prepare("INSERT INTO test_sensor_4 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
 
         if (query.exec()) {
@@ -167,10 +167,11 @@ void MainWindow::dataRedist(QString ID, QString value){
         } else {
             qCritical() << "Ошибка при добавлении записи:" << query.lastError().text();
         }
-    }else if(ID == "bat"){
-        if(!checkValue(0, 100, &ID, &value)) return;
+    }else if(ID == "tbat"){
+        if(!checkValue(-10.0f, 70.0f, &ID, &value)) return;
+        value = QString::number(int(value.toFloat()));
         QSqlQuery query;
-        query.prepare("INSERT INTO test_sensor_4 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
+        query.prepare("INSERT INTO test_sensor_2 (value, timestamp) VALUES (:value1, CURRENT_TIMESTAMP)");
         query.bindValue(":value1", value);
 
         if (query.exec()) {
@@ -212,40 +213,28 @@ void MainWindow::sendData(){
 }
 
 bool MainWindow::checkValue(float left, float right, const QString* id, const QString* value){
-    try {
-        bool *ok = new bool();
-        float val = value->toFloat(ok);
-        if(!*ok) throw(QString("conversion failure [id = %1, value = %2]").arg(*id).arg(*value));
-        if(val < left || val > right){
-            throw(QString("value out of range [id = %1, value = %2]").arg(*id).arg(*value));
-        }
-    } catch (QString str) {
-        qWarning() << str;
+    bool *ok = new bool();
+    float val = value->toFloat(ok);
+    if(!*ok){
+        qWarning() << QString("conversion failure [id = %1, value = %2]").arg(*id).arg(*value);
         return false;
-    } catch (...){
-        qCritical() << QString("smt gone wrong ["
-                               "function bool checkValue(float, float, const QString*, const QString*);"
-                               "id = %1, value = %2]").arg(*id).arg(*value);
+    }
+    if(val < left || val > right){
+        qWarning() << QString("value out of range [id = %1, value = %2]").arg(*id).arg(*value);
         return false;
     }
     return true;
 }
 
 bool MainWindow::checkValue(int left, int right, const QString* id, const QString* value){
-    try {
-        bool *ok = new bool();
-        int val = value->toInt(ok);
-        if(!*ok) throw(QString("conversion failure [id = %1, value = %2]").arg(*id).arg(*value));
-        if(val < left || val > right){
-            throw(QString("value out of range [id = %1, value = %2]").arg(*id).arg(*value));
-        }
-    } catch (QString str) {
-        qWarning() << str;
+    bool *ok = new bool();
+    int val = value->toInt(ok);
+    if(!*ok){
+        qWarning() << QString("conversion failure [id = %1, value = %2]").arg(*id).arg(*value);
         return false;
-    } catch (...){
-        qCritical() << QString("smt gone wrong ["
-                               "function bool checkValue(int, int, const QString*, const QString*);"
-                               "id = %1, value = %2]").arg(*id).arg(*value);
+    }
+    if(val < left || val > right){
+        qWarning() << QString("value out of range [id = %1, value = %2]").arg(*id).arg(*value);
         return false;
     }
     return true;

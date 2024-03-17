@@ -1,17 +1,32 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#define IP "127.0.0.1"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Клиент");
+    // this->setMaximumWidth(1280);
+    // this->setMaximumHeight(800);
+    // this->showFullScreen();
+    this->resize(1280, 800);
+
+    QPalette Pal(palette());
+    Pal.setColor(QPalette::Window, QColor(25, 28, 31));
+    this->setAutoFillBackground(true);
+    this->setPalette(Pal);
+
     socket = new QTcpSocket(this);
     connect(socket, &QTcpSocket::readyRead, this, &MainWindow::slotReadyRead);
     connect(socket, &QTcpSocket::disconnected, this, &MainWindow::slotDisconnected);
     connect(socket, &QTcpSocket::connected, this, &MainWindow::slotInfo);
+
     nextBlockSize = 0;
+
+    connect(this, &MainWindow::signalSpeed, ui->widget, &WidgetSpeed::slotSpeed);
+    connect(this, &MainWindow::signalCharge, ui->widget_3, &WidgetCharge::slotCharge);
+    connect(this, &MainWindow::signalTemp, ui->widget_4, &WidgetTemp::slotTemp);
 }
 
 MainWindow::~MainWindow()
@@ -22,7 +37,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-    socket->connectToHost(IP, 2323); //Attempts to make a connection to hostName on the given port.
+    socket->connectToHost("192.168.0.65", 2323); //Attempts to make a connection to hostName on the given port.
 }
 
 void MainWindow::slotInfo()
@@ -79,6 +94,9 @@ void MainWindow::slotReadyRead()
                 QLabel *label = findChild<QLabel*>("label_" + QString::number(i));
                 label->setText(ArriveDataList.at(i));
             }
+            emit signalSpeed(ArriveDataList.at(1));
+            emit signalCharge(ArriveDataList.at(2));
+            emit signalTemp(ArriveDataList.at(4));
         }
     }
     else

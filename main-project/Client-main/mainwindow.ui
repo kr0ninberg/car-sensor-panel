@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>955</width>
-    <height>668</height>
+    <width>1280</width>
+    <height>800</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>251</width>
+      <width>201</width>
       <height>25</height>
      </rect>
     </property>
@@ -32,16 +32,16 @@
      <rect>
       <x>10</x>
       <y>41</y>
-      <width>251</width>
-      <height>551</height>
+      <width>201</width>
+      <height>201</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>70</y>
+      <x>230</x>
+      <y>10</y>
       <width>131</width>
       <height>161</height>
      </rect>
@@ -84,19 +84,82 @@
      </item>
     </layout>
    </widget>
+   <widget class="WidgetSpeed" name="widget" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>373</x>
+      <y>135</y>
+      <width>525</width>
+      <height>525</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>312</y>
+      <width>265</width>
+      <height>257</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetCharge" name="widget_3" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>306</y>
+      <width>280</width>
+      <height>280</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTemp" name="widget_4" native="true">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>666</y>
+      <width>320</width>
+      <height>80</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>955</width>
+     <width>1280</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetSpeed</class>
+   <extends>QWidget</extends>
+   <header location="global">widgetspeed.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetCharge</class>
+   <extends>QWidget</extends>
+   <header location="global">widgetcharge.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTemp</class>
+   <extends>QWidget</extends>
+   <header location="global">widgettemp.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

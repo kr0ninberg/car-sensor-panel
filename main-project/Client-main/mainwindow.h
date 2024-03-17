@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include <QTime>
 #include <QHostAddress>
+#include <QStyle>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,5 +35,9 @@ public slots:
     void slotInfo();
     void slotDisconnected();
 
+signals:
+    void signalSpeed(QString speed);
+    void signalCharge(QString charge);
+    void signalTemp(QString temp);
 };
 #endif // MAINWINDOW_H

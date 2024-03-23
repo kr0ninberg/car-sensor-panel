@@ -35,7 +35,7 @@ void WidgetTop::paintEvent(QPaintEvent *event)
     painter.drawPixmap(QPoint(400, 80), RightTurn);
 
     painter.setPen(QPen(Qt::white, 12, Qt::SolidLine, Qt::RoundCap));
-    painter.setFont(QFont("Ubuntu", 19, QFont::Medium));
+    painter.setFont(QFont(FONT, 19, QFont::Medium));
     painter.drawText(QRect(center.x() - 79, center.y() / 2 - 15, 150, 30),
                      Qt::AlignVCenter | Qt::AlignHCenter, QTime::currentTime().toString("hh:mm"));
     painter.drawText(QRect(0, center.y() / 2 - 15, 502, 30),

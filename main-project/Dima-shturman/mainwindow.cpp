@@ -27,16 +27,16 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
 
-    QPixmap Back("./resources/Background.png"); //./Background.png
-    QPixmap Wifi("./resources/Wifi.png");
-    QPixmap Autoicon("./resources/Auto icon.png");
-    QPixmap Radioicon("./resources/Radio icon.png");
+    QPixmap Back(":/resources/Background.png"); //./Background.png
+    QPixmap Wifi(":/resources/Wifi.png");
+    QPixmap Autoicon(":/resources/Auto icon.png");
+    QPixmap Radioicon(":/resources/Radio icon.png");
 
-    QPixmap Charge("./resources/Charge.png");
-    QPixmap Car("./resources/Main car.png");
-    QPixmap Pause("./resources/Music pause.png");
-    QPixmap ArLeft("./resources/Arrows left.png");
-    QPixmap ArRight("./resources/Arrows right.png");
+    QPixmap Charge(":/resources/Charge.png");
+    QPixmap Car(":/resources/Main car.png");
+    QPixmap Pause(":/resources/Music pause.png");
+    QPixmap ArLeft(":/resources/Arrows left.png");
+    QPixmap ArRight(":/resources/Arrows right.png");
 
     //Задний фон
     painter.drawPixmap (QPoint(0, 20), Back);

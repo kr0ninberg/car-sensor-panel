@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="WidgetSpeed" name="widget" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>140</y>
+      <width>525</width>
+      <height>525</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetRight" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>486</x>
+      <y>650</y>
+      <width>321</width>
+      <height>80</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetCharge" name="widget_3" native="true">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>100</y>
+      <width>280</width>
+      <height>527</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTop" name="widget_5" native="true">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>0</y>
+      <width>640</width>
+      <height>121</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTemp" name="widget_4" native="true">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>640</y>
+      <width>320</width>
+      <height>98</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTemp1" name="widget_6" native="true">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>640</y>
+      <width>320</width>
+      <height>98</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetSpeed</class>
+   <extends>QWidget</extends>
+   <header>widgetspeed.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetCharge</class>
+   <extends>QWidget</extends>
+   <header>widgetcharge.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTemp</class>
+   <extends>QWidget</extends>
+   <header>widgettemp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetRight</class>
+   <extends>QWidget</extends>
+   <header>widgetright.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTop</class>
+   <extends>QWidget</extends>
+   <header>widgettop.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTemp1</class>
+   <extends>QWidget</extends>
+   <header location="global">widgettemp1.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

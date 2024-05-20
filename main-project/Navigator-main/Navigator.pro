@@ -31,4 +31,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     Mapping.qml
 
-RESOURCES +=
+RESOURCES += \
+    resources.qrc

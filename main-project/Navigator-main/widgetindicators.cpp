@@ -16,7 +16,7 @@ void WidgetIndicators::paintEvent(QPaintEvent *event)
     // QPixmap Moon("Moon.png");
     // QPixmap Сonnection("Сonnection.png");
 
-    QPixmap Indicators("Indicators.png");
+    QPixmap Indicators(":/Indicators.png");
 
     //painter.drawRect(painter.viewport());
 

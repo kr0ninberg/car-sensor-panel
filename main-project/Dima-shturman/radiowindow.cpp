@@ -1,6 +1,8 @@
 #include "radiowindow.h"
 //#include "widgetmusic.h"
 #include "ui_radiowindow.h"
+//#define ResDir QCoreApplication::applicationDirPath()
+QString ResDir;
 
 RadioWindow::RadioWindow(QWidget *parent) :
     QWidget(parent),
@@ -10,35 +12,37 @@ RadioWindow::RadioWindow(QWidget *parent) :
 
     m_player = new QMediaPlayer(this);          // Инициализируем плеер
 
+    ResDir = QCoreApplication::applicationDirPath() + "/resources";
+    qDebug() << ResDir;
     jazz_playlist = new QMediaPlaylist(m_player);  // Инициализируем плейлист
-    jazz_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Jazz/jazz1.mp3"))); //QMediaContent(QUrl::fromLocalFile(filename)) //"./resources/Jazz/jazz1.mp3"
-    jazz_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Jazz/jazz2.mp3")));
-    jazz_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Jazz/jazz3.mp3")));
+    jazz_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Jazz/jazz1.mp3"))); //QMediaContent(QUrl::fromLocalFile(filename)) //ResDir + "/Jazz/jazz1.mp3"
+    jazz_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Jazz/jazz2.mp3")));
+    jazz_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Jazz/jazz3.mp3")));
 
     rock_playlist = new QMediaPlaylist(m_player);  // Инициализируем плейлист
-    rock_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Rock/rock1.mp3"))); //"./resources/Rock/rock1.mp3"
-    rock_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Rock/rock2.mp3")));
-    rock_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Rock/rock3.mp3")));
+    rock_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Rock/rock1.mp3"))); //ResDir + "/Rock/rock1.mp3"
+    rock_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Rock/rock2.mp3")));
+    rock_playlist->QMediaPlaylist::addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Rock/rock3.mp3")));
 
     pop_playlist = new QMediaPlaylist(m_player);  // Инициализируем плейлист
-    pop_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Pop/Pop1.mp3"))); // "./resources/Pop/pop1.mp3"
-    pop_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Pop/Pop2.mp3")));
-    pop_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Pop/Pop3.mp3")));
+    pop_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Pop/Pop1.mp3"))); // ResDir + "/Pop/pop1.mp3"
+    pop_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Pop/Pop2.mp3")));
+    pop_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Pop/Pop3.mp3")));
 
     rRoll_playlist = new QMediaPlaylist(m_player);  // Инициализируем плейлист
-    rRoll_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/rRoll/rRoll1.mp3"))); //"./resources/rRoll/rRoll1.mp3"
-    rRoll_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/rRoll/rRoll2.mp3")));
-    rRoll_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/rRoll/rRoll3.mp3")));
+    rRoll_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/rRoll/rRoll1.mp3"))); //ResDir + "/rRoll/rRoll1.mp3"
+    rRoll_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/rRoll/rRoll2.mp3")));
+    rRoll_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/rRoll/rRoll3.mp3")));
 
     classic_playlist = new QMediaPlaylist(m_player);  // Инициализируем плейлист
-    classic_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Classic/classic1.mp3"))); //"./resources/Classic/classic1.mp3"
-    classic_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Classic/classic2.mp3")));
-    classic_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/Classic/classic3.mp3")));
+    classic_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Classic/classic1.mp3"))); //ResDir + "/Classic/classic1.mp3"
+    classic_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Classic/classic2.mp3")));
+    classic_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/Classic/classic3.mp3")));
 
     Rnb_playlist = new QMediaPlaylist(m_player);  // Инициализируем плейлист
-    Rnb_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/RnB/Rnb1.mp3")));
-    Rnb_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/RnB/Rnb2.mp3")));
-    Rnb_playlist->addMedia(QMediaContent(QUrl::fromLocalFile("./resources/RnB/Rnb3.mp3")));    //"./resources/RnB/Rnb1.mp3"
+    Rnb_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/RnB/Rnb1.mp3")));
+    Rnb_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/RnB/Rnb2.mp3")));
+    Rnb_playlist->addMedia(QMediaContent(QUrl::fromLocalFile(ResDir + "/RnB/Rnb3.mp3")));    //ResDir + "/RnB/Rnb1.mp3"
 
     connect(ui->jazzButton, &QPushButton::clicked, this, &RadioWindow::on_jazzButton_clicked);
     connect(ui->rockButton, &QPushButton::clicked, this, &RadioWindow::on_rockButton_clicked);
@@ -59,16 +63,16 @@ void RadioWindow::paintEvent(QPaintEvent *event)
     QPainter painter(this);
 
 
-    QPixmap Back("./Background.png"); //./Background.png
-    QPixmap Wifi("./Wifi.png");
-    QPixmap Autoicon("./Auto icon.png");
-    QPixmap Radioicon("./Radio icon.png");
+    QPixmap Back(":/resources/Background.png"); //./Background.png
+    QPixmap Wifi(":/resources/Wifi.png");
+    QPixmap Autoicon(":/resources/Auto icon.png");
+    QPixmap Radioicon(":/resources/Radio icon.png");
 
-    QPixmap Charge("./Charge.png");
-    // QPixmap Car("/Main car.png");
-    // QPixmap Pause("/Music pause.png");
-    // QPixmap ArLeft("/Arrows left.png");
-    // QPixmap ArRight("/Arrows right.png");
+    QPixmap Charge(":/resources/Charge.png");
+    // QPixmap Car(":/resources/Main car.png");
+    // QPixmap Pause(ResDir + "/Music pause.png");
+    // QPixmap ArLeft(ResDir + "/Arrows left.png");
+    // QPixmap ArRight(ResDir + "/Arrows right.png");
 
     //Задний фон
     painter.drawPixmap (QPoint(0, 20), Back);

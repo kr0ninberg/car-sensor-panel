@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#define SERVER_IP "127.0.0.1"
+#define SERVER_IP "127.0.0.1"
 //#define SERVER_IP "192.168.0.19"
-#define SERVER_IP "192.168.0.19"
+//#define SERVER_IP "192.168.0.19"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(Variant_2, &QAction::toggled, ui->widget_4, &WidgetTemp::slotVariant2);
 
     connect(ui->widget_3, &WidgetCharge::signalVariant2off, Variant_2, &QAction::setChecked);
-    connect(ui->widget_3, &WidgetCharge::signalVariant1off, Variant_1, &QAction::setChecked);
+    connect(ui->widget_3, &WidgetCharge::signalVariant1off, Variant_1, &QAction::setChecked); // FIXME change connect for readability
 
 
 

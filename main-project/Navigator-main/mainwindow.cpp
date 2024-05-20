@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
     // QQuickWidget *view = new QQuickWidget;
 
     connect(ui->quickWidget, &QQuickWidget::statusChanged, this, &MainWindow::statusChanged);
-    ui->quickWidget->setSource(QUrl::fromLocalFile("Mapping.qml"));
+    ui->quickWidget->setSource(QUrl::fromLocalFile(":/Mapping.qml"));
     ui->quickWidget->show();
 
 }

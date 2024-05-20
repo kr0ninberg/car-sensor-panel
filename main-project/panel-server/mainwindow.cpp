@@ -210,7 +210,7 @@ void MainWindow::sendData(){
         res += query2.value("Value").toString();
     }
 
-    //qDebug() << res;
+    qDebug() << res;
     s->SendToClient(res);
 }
 

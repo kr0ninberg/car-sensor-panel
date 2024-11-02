@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Mapping.qml</file>
+        <file>Indicators.png</file>
+    </qresource>
+</RCC>

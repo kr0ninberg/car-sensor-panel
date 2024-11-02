@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>201</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>connect</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>41</y>
+      <width>201</width>
+      <height>201</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>10</y>
+      <width>131</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_0">
+       <property name="text">
+        <string>Дата</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_1">
+       <property name="text">
+        <string>Скорость</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Температура</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Запас хода</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Батарея</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="WidgetSpeed" name="widget" native="true">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>377</x>
+      <y>135</y>
+      <width>526</width>
+      <height>526</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetRight" name="widget_2" native="true">
+    <property name="geometry">
+     <rect>
+      <x>960</x>
+      <y>270</y>
+      <width>265</width>
+      <height>260</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetCharge" name="widget_3" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>260</y>
+      <width>280</width>
+      <height>280</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTemp" name="widget_4" native="true">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>660</y>
+      <width>320</width>
+      <height>80</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="WidgetTop" name="widget_5" native="true">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>0</y>
+      <width>640</width>
+      <height>120</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetSpeed</class>
+   <extends>QWidget</extends>
+   <header location="global">widgetspeed.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetCharge</class>
+   <extends>QWidget</extends>
+   <header location="global">widgetcharge.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTemp</class>
+   <extends>QWidget</extends>
+   <header location="global">widgettemp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetRight</class>
+   <extends>QWidget</extends>
+   <header>widgetright.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetTop</class>
+   <extends>QWidget</extends>
+   <header location="global">widgettop.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

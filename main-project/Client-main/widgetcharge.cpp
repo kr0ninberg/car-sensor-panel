@@ -1,4 +1,6 @@
 #include "widgetcharge.h"
+#define FONT "ubuntu"
+//#define FONT juraFont
 
 WidgetCharge::WidgetCharge(QWidget *parent)
     : QWidget{parent}
@@ -31,10 +33,10 @@ void WidgetCharge::paintEvent(QPaintEvent *event)
 
     painter.drawArc(QRect(10, 10, 260, 260), 1440 , AcceptedChargeInt*57.6);
 //    painter.drawText(center, AcceptedChargeQString);
-    painter.setFont(QFont("Ubuntu", 40, QFont::Medium));
+    painter.setFont(QFont(FONT, 40, QFont::Medium));
     painter.setPen(QPen(Qt::white));
     painter.drawText(QRect(center.x() - 110, center.y() - 100, 220, 120), Qt::AlignHCenter | Qt::AlignBottom,  AcceptedChargeQString + " %");
-    painter.setFont(QFont("Ubuntu", 14, QFont::Thin));
+    painter.setFont(QFont(FONT, 14, QFont::Thin));
     painter.setPen(QPen(Qt::white));
     painter.drawText(QRect(center.x() - 110, center.y() + 20, 220, 120), Qt::AlignHCenter | Qt::AlignTop,  "Заряд батареи");
 

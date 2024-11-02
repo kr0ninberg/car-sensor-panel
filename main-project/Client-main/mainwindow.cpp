@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-//#define SERVER_IP "127.0.0.1"
-#define SERVER_IP "192.168.0.65"
+#define SERVER_IP "127.0.0.1"
+//#define SERVER_IP "192.168.1.7"
+#define FONT "ubuntu"
+//#define FONT juraFont
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,10 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Клиент");
-//     this->setMaximumWidth(1280);
-//     this->setMaximumHeight(800);
-     this->setWindowState(Qt::WindowFullScreen);
-//    this->resize(1280, 800);
+//    this->setWindowState(Qt::WindowFullScreen);
 
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, QColor(25, 28, 31));

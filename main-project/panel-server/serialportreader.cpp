@@ -19,20 +19,18 @@ void SerialPortReader::handleReadyRead()
     m_readData.append(m_serialPort->readAll());
     qDebug() << m_readData;
 
-    if(m_readData.contains('\n')) m_readData.remove(m_readData.indexOf('\n'), 1);
-    //while(m_readData.contains('\n')) m_readData.remove(m_readData.indexOf('\n'), 1);
-    if(m_readData.contains('\r')) m_readData.remove(m_readData.indexOf('\r'), 1);
-    //while(m_readData.contains('\r')) m_readData.remove(m_readData.indexOf('\r'), 1);
-    if(m_readData.length() == 0) return;
     QString ID;
     QString value;
-    if(m_readData.contains(' ')){
-        ID = m_readData.split(' ')[0];
-        value = m_readData.split(' ')[1];
-    } else {
-        ID = "all";
-        value = m_readData;
+    while(m_readData.contains("\r\n")){
+        QByteArray data = m_readData.chopped(m_readData.size() - m_readData.indexOf("\r\n"));
+        m_readData.remove(0, m_readData.indexOf("\r\n")+2);
+        if(data.contains(' ')){
+            ID = data.split(' ')[0];
+            value = data.split(' ')[1];
+        } else {
+            ID = "all";
+            value = data;
+        }
+        emit portOut(ID, value);
     }
-    //qDebug() << "!!! " << ID << " " << value << " " << value.toDouble();
-    emit portOut(ID, value);
 };

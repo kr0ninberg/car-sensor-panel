@@ -1,4 +1,6 @@
 #include "widgetspeed.h"
+#define FONT "ubuntu"
+//#define FONT juraFont
 
 WidgetSpeed::WidgetSpeed(QWidget *parent)
     : QWidget{parent}
@@ -28,12 +30,10 @@ void WidgetSpeed::paintEvent(QPaintEvent *event)
 
 //    painter.drawRect(painter.viewport());
 
-//    int idFont = QFontDatabase::addApplicationFont(QCoreApplication::applicationDirPath() + "\Jura-Medium.woff");
-//    int idFont = QFontDatabase::addApplicationFont("Jura-Medium.woff");
+//    int idFont = QFontDatabase::addApplicationFont(":/font.woff");
 //    QString juraFont = QFontDatabase::applicationFontFamilies(idFont).at(0);
-//    painter.setFont(QFont(juraFont , 25));
 
-    painter.setFont(QFont("Ubuntu", 25, QFont::Thin));
+    painter.setFont(QFont(FONT, 25, QFont::Thin));
     painter.setPen(QPen(Qt::white));
 
     QPoint p11(390,380); //120 // 280,280
@@ -52,13 +52,10 @@ void WidgetSpeed::paintEvent(QPaintEvent *event)
     painter.drawText(p5, "40");
     painter.drawText(p6, "20");
     painter.drawText(p7, "0");
-//    painter.setFont(QFont(juraFont , 20));
-    painter.setFont(QFont("Ubuntu", 20, QFont::Thin));
+    painter.setFont(QFont(FONT, 20, QFont::Thin));
     painter.drawText(k, "км/ч");
 
-
-//    painter.setFont(QFont(juraFont, 75));
-    painter.setFont(QFont("Ubuntu", 75, QFont::Medium));
+    painter.setFont(QFont(FONT, 75, QFont::Medium));
     painter.setPen(QPen(Qt::white));
     painter.drawText(QRect(center.x() - 110, center.y() - 60, 220, 120), Qt::AlignVCenter | Qt::AlignHCenter,  AcceptedSpeedQString);
 

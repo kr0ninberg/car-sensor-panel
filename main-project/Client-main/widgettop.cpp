@@ -1,4 +1,6 @@
 #include "widgettop.h"
+#define FONT "ubuntu"
+//#define FONT juraFont
 
 WidgetTop::WidgetTop(QWidget *parent)
     : QWidget{parent}
@@ -22,10 +24,10 @@ void WidgetTop::paintEvent(QPaintEvent *event)
     QPoint center = painter.viewport().center();
 //    painter.drawRect(painter.viewport());
 
-    QPixmap TopBar("Top_bar.png");
-    QPixmap Far("Far.png");
-    QPixmap RightTurn("Right_turn.png");
-    QPixmap LeftTurn("Left_turn.png");
+    QPixmap TopBar(":/Top_bar.png");
+    QPixmap Far(":/Far.png");
+    QPixmap RightTurn(":/Right_turn.png");
+    QPixmap LeftTurn(":/Left_turn.png");
 
     painter.drawPixmap(QPoint(41,0), TopBar);
     painter.drawPixmap(QPoint(138,20), Far);

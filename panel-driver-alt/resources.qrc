@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AVG_icon.png</file>
+        <file>Distance_icon.png</file>
+        <file>Power_icon.png</file>
+        <file>Speed.bmp</file>
+        <file>eng.png</file>
+        <file>Top_bar.png</file>
+    </qresource>
+</RCC>
